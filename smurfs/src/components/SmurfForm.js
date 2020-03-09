@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useReducer } from "react";
 import uuid from "uuid";
 import { initialState, reducer } from "../reducer/reducer";
+import axios from 'axios';
 
 const SmurfForm = () => {
     const [newSmurfName, setNewSmurfName] = useState("");
@@ -17,12 +18,26 @@ const SmurfForm = () => {
         // before dispatching - could add a if statement to
         // check if the new smurf is an empty string
         // or if the item already exists
-        const duplicateCheck = state.map((itemFromList) => {
+        // const duplicateCheck = state.map((itemFromList) => {
 
-        })
-
-        dispatch({ type: "ADD_SMURF", payload: newSmurfName });
+        // })
+        const newSmurf = {
+            name: newSmurfName,
+            age: newSmurfAge,
+            height: newSmurfHeight,
+            id: uuid()
+        }
+        dispatch({ type: "ADD_SMURF", payload: newSmurf });
         console.log(state);
+
+        axios.post('http://localhost:3333/smurfs', {
+            name: newSmurf.name,
+            age: newSmurf.age,
+            height: newSmurf.height,
+            id: uuid()
+        })
+     
+        
     };
 
     const handleChangeName = e => {
@@ -41,6 +56,9 @@ const SmurfForm = () => {
     };
 
     console.log(state);
+    
+
+
     return (
         <div>
             <br></br>
@@ -67,6 +85,19 @@ const SmurfForm = () => {
                     Add
                  </button>
             </form>
+
+            {state.map(itemFromList => {
+                console.log(itemFromList.name);
+                return (
+                    <div
+                        key={itemFromList.id}
+                        id={itemFromList.name}
+                    >
+                        {itemFromList.name}
+                    </div>
+                );
+            })
+            }
 
         </div>
     );
