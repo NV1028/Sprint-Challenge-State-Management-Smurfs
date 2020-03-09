@@ -1,21 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
 import SmurfForm from './SmurfForm';
-import SmurfData from './SmurfData';
 import axios from 'axios';
-class App extends Component {
+
+const App = () => {
 
   
-  render() {
-
-    axios
-            .get("http://localhost:3333/smurfs")
-            .then(res => {
-                console.log('res', res.data);
-            })
-            .catch(err => {
-                console.log('err', err);
-            })
+  
 
     return (
       <div className="App">
@@ -27,7 +18,7 @@ class App extends Component {
         
       </div>
     );
-  }
+  
 }
 
 export default App;

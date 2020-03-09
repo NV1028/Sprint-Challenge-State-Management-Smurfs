@@ -19,6 +19,9 @@ export const reducer = (state = initialState, action) => {
           height: action.payload.height, 
           id: uuid() 
         }];
+
+    case "FETCHING_SMURF_SUCCESS":
+        return state;
     
     default:
       return state;

@@ -4,6 +4,9 @@ import { useReducer } from "react";
 import uuid from "uuid";
 import { initialState, reducer } from "../reducer/reducer";
 import axios from 'axios';
+import { getSmurf } from '../actions/index'
+import { connect } from 'react-redux';
+
 
 const SmurfForm = () => {
     const [newSmurfName, setNewSmurfName] = useState("");
@@ -14,13 +17,6 @@ const SmurfForm = () => {
     const handleSubmit = e => {
         e.preventDefault();
         console.log("Add", newSmurfName, "to smurf list");
-
-        // before dispatching - could add a if statement to
-        // check if the new smurf is an empty string
-        // or if the item already exists
-        // const duplicateCheck = state.map((itemFromList) => {
-
-        // })
         const newSmurf = {
             name: newSmurfName,
             age: newSmurfAge,
@@ -36,8 +32,8 @@ const SmurfForm = () => {
             height: newSmurf.height,
             id: uuid()
         })
-     
-        
+       
+
     };
 
     const handleChangeName = e => {
@@ -56,7 +52,7 @@ const SmurfForm = () => {
     };
 
     console.log(state);
-    
+
 
 
     return (
@@ -98,9 +94,14 @@ const SmurfForm = () => {
                 );
             })
             }
+            <button id="add-button"
+                    className="submit-button"
+                    onClick={getSmurf}>Get Smurf Button</button>
 
         </div>
     );
+
+
 };
 
 export default SmurfForm;
